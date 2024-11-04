@@ -1,5 +1,7 @@
 package dat;
 
+import dat.daos.TripDAO;
+import dat.dtos.TripDTO;
 import dat.entities.Category;
 import dat.entities.Guide;
 import dat.entities.Trip;
@@ -61,9 +63,9 @@ public class PopulatorTest
     }
 
 
-    public static List<Trip> populateData(EntityManagerFactory emf)
+    public static List<TripDTO> populateData(EntityManagerFactory emf)
     {
-        List<Trip> list = new ArrayList<>();
+        List<TripDTO> list = new ArrayList<>();
 
         Trip trip1 = new Trip("Mountain Hike", LocalDateTime.of(2023, 5, 12, 9, 0), LocalDateTime.of(2023, 5, 12, 17, 0), 34.0564, -118.2468, 99.99, Category.BEACH);
         Trip trip2 = new Trip("City Tour", LocalDateTime.of(2023, 6, 15, 10, 0), LocalDateTime.of(2023, 6, 15, 13, 0), 40.7128, -74.0060, 49.99, Category.CITY);
@@ -86,12 +88,31 @@ public class PopulatorTest
         trip5.setGuide(guide5);
         trip6.setGuide(guide6);
 
-        list.add(trip1);
-        list.add(trip2);
-        list.add(trip3);
-        list.add(trip4);
-        list.add(trip5);
-        list.add(trip6);
+
+        try(EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.persist(guide1);
+            em.persist(guide2);
+            em.persist(guide3);
+            em.persist(guide4);
+            em.persist(guide5);
+            em.persist(guide6);
+            em.persist(trip1);
+            em.persist(trip2);
+            em.persist(trip3);
+            em.persist(trip4);
+            em.persist(trip5);
+            em.persist(trip6);
+            em.getTransaction().commit();
+        }
+
+        list.add(new TripDTO(trip1));
+        list.add(new TripDTO(trip2));
+        list.add(new TripDTO(trip3));
+        list.add(new TripDTO(trip4));
+        list.add(new TripDTO(trip5));
+        list.add(new TripDTO(trip6));
 
         return list;
     }

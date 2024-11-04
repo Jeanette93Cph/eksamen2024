@@ -146,3 +146,8 @@ GET {{url}}/trips/guides/totalprice
 Authorization: Bearer {{jwt_token}}
 
 
+###
+
+GET {{url}}/trips/3/trips
+Authorization: Bearer {{jwt_token}}
+

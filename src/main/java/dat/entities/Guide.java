@@ -1,5 +1,6 @@
 package dat.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dat.dtos.GuideDTO;
 import jakarta.persistence.*;
