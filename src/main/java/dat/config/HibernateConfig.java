@@ -1,5 +1,7 @@
 package dat.config;
 
+import dat.entities.Guide;
+import dat.entities.Trip;
 import dat.security.entities.Role;
 import dat.security.entities.User;
 import dat.utils.Utils;
@@ -59,6 +61,8 @@ public class HibernateConfig
     // this registration allows hibernate to recognize and manage these entities when performing database operations.
     private static void getAnnotationConfiguration(Configuration configuration)
     {
+        configuration.addAnnotatedClass(Trip.class);
+        configuration.addAnnotatedClass(Guide.class);
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Role.class);
     }

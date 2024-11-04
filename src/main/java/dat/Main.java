@@ -8,7 +8,6 @@ public class Main
     public static void main(String[] args)
     {
         ApplicationConfig.startServer(7000);
-        //Populate.main(args);
-
+        Populate.main(args);
     }
 }

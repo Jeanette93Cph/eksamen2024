@@ -1,0 +1,148 @@
+
+### Create a new user - this one will only get a USER role by default
+POST {{url}}/auth/register/
+
+{
+    "username": "Lars",
+    "password": "lars123"
+}
+
+### LOGIN
+POST {{url}}/auth/login/
+Content-Type: application/json
+
+{
+  "username": "Lars",
+  "password": "lars123"
+}
+
+
+> {%
+    client.global.set("jwt_token", response.body.token);
+    console.log("JWT Token:", client.global.get("jwt_token"));
+%}
+
+###
+GET {{url}}/protected/user_demo/
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+###
+GET {{url}}/protected/admin_demo/
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+### Add admin role to user
+POST {{url}}/auth/user/addrole/
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+    "role": "admin"
+}
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+
+
+### To access the trips methods, the user must be logged in
+
+
+
+GET {{url}}/trips/
+Authorization: Bearer {{jwt_token}}
+
+
+
+###
+
+GET {{url}}/trips/2
+Authorization: Bearer {{jwt_token}}
+
+
+
+###
+
+POST {{url}}/trips/
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "name": " Lang tur",
+  "startTime": [
+    2023,
+    7,
+    21,
+    9,
+    1
+  ],
+  "endTime": [
+    2023,
+    9,
+    15,
+    13,
+    0
+  ],
+  "latitude": 40.7128,
+  "longitude": -74.006,
+  "price": 49.99,
+  "category": "CITY"
+
+  }
+
+
+###
+
+PUT {{url}}/trips/3
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+"id": 3,
+"name": "Beach Day",
+"startTime": [
+2023,
+7,
+20,
+8,
+0
+],
+"endTime": [
+2023,
+7,
+20,
+18,
+0
+],
+"latitude": 36.7783,
+"longitude": -119.4179,
+"price": 59.99,
+"category": "BEACH"
+}
+
+
+###
+
+DELETE {{url}}/trips/2
+Authorization: Bearer {{jwt_token}}
+
+
+###
+
+PUT {{url}}/trips/1/guides/3
+Authorization: Bearer {{jwt_token}}
+
+
+###
+
+
+GET {{url}}/trips/type/BEACH
+Authorization: Bearer {{jwt_token}}
+
+
+###
+
+GET {{url}}/trips/guides/totalprice
+Authorization: Bearer {{jwt_token}}
+
+
